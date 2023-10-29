@@ -9,11 +9,13 @@ export const Login: FC = () => {
           placeholder='Email' 
           type="email" 
           color="custom.white" 
+          id='email'
         />
         <Input 
           placeholder='Password' 
           type="password" mt="20px" 
           color="custom.white" 
+          id="pass"
         />
         <Button variant="solid" h="35px" mt="20px">
           Submit
