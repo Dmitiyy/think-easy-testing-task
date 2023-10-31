@@ -4,26 +4,21 @@ import Cookies from 'js-cookie';
 export const useToken = () => {
   const [cookieValues, setCookieValues] = useState<{
     token: string, 
-    refreshToken: string,
-    id: string
+    refreshToken: string
   }>({
     token: '',
-    refreshToken: '',
-    id: '',
+    refreshToken: ''
   });
   
   useEffect(() => {
     // Retrieving the values from cookies
-    const token = Cookies.get('token');
+    const token = Cookies.get('accessToken');
     const refreshToken = Cookies.get('refreshToken');
-    const id = Cookies.get('id');
-
     // Checking if the values exist and update the state
-    if (token && refreshToken && id) {
+    if (token && refreshToken) {
       setCookieValues({
         token,
-        refreshToken,
-        id,
+        refreshToken
       });
     }
   }, []);

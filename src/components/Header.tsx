@@ -1,7 +1,9 @@
 import { Button, Flex, Heading, Highlight, Input, Spacer } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useToken } from '../hooks/useToken';
+import { useCookieToken } from '../hooks/useCookieToken';
+import { SearchInput } from './SearchInput';
 
 const customHighlight = {
   px: '3', 
@@ -14,6 +16,13 @@ const customHighlight = {
 
 export const Header: FC = () => {
   const { token } = useToken();
+  const { removeTokenData } = useCookieToken();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    removeTokenData();
+    navigate('/signup');
+  }
 
   return (
     <Flex align="center">
@@ -26,17 +35,13 @@ export const Header: FC = () => {
         </Highlight>
       </Heading>
       <Spacer />
-      <Input 
-        placeholder="Enter a keyword" 
-        maxW="350px" h="35px" 
-        color="custom.white" 
-      />
+      <SearchInput />
       <Spacer />
       {
         token.length !== 0 ? (
-          <Link to="/my">
+          <Link to="/create">
             <Button variant="link" color='custom.white'>
-              My posts
+              Create post
             </Button>
           </Link>
         ) : (
@@ -56,7 +61,7 @@ export const Header: FC = () => {
             </Button>
           </Link>
         ) : (
-          <Button variant='solid' h="35px">
+          <Button variant='solid' h="35px" onClick={logout}>
             Log out
           </Button>
         )

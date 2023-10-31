@@ -7,16 +7,8 @@ import { Signup } from './pages/Signup';
 import { Post } from './pages/Post';
 import { MyPosts } from './pages/MyPosts';
 import { NewPost } from './pages/NewPost';
-import { useToken } from './hooks/useToken';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-//TODO seperate into different theme file
 const theme = extendTheme({
   styles: {
     global: {
@@ -36,25 +28,17 @@ const theme = extendTheme({
 const queryClient = new QueryClient();
 
 function App() {
-  const { token } = useToken();
-
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <RecoilRoot>
           <BrowserRouter>
             <Routes>
-              {
-                (token && token.length !== 0) && (
-                  <>
-                    <Route path='/create' element={<NewPost />} />
-                    <Route path='/my' element={<MyPosts />} />
-                  </>
-                )
-              }
-              <Route path='/post/:id' element={<Post />} />
+              <Route path='/create' element={<NewPost />} />
+              <Route path='/my' element={<MyPosts />} />
               <Route path='/signup' element={<Signup />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/post/:id' element={<Post />} />
               <Route path='*' element={<Home />} />
             </Routes>
           </BrowserRouter>
